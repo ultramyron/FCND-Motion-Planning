@@ -3,7 +3,7 @@ import time
 import msgpack
 from enum import Enum, auto
 
-import numpy as nump
+import numpy as np
 
 from planning_utils import a_star, heuristic, create_grid
 from udacidrone import Drone
