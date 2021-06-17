@@ -115,7 +115,7 @@ class MotionPlanning(Drone):
     def plan_path(self):
         self.flight_state = States.PLANNING
         print("Searching for a path ...")
-        TARGET_ALTITUDE = 5
+        TARGET_ALTITUDE = 10
         SAFETY_DISTANCE = 5
 
         self.target_position[2] = TARGET_ALTITUDE
@@ -143,13 +143,14 @@ class MotionPlanning(Drone):
         grid_start = (math.floor(-north_offset+local_coordinates[0]), math.floor(-east_offset+local_coordinates[1]))
         
         # input your goal longitude and latitude and convert to north east coordinates (local coordinates)
+
         goal_lat = 37.7925
         goal_lon = -122.3975
         goal_altitude = -4
         goal_coordinates = global_to_local(np.array([goal_lon, goal_lat, goal_altitude]), self.global_home)
 
         # Set goal as some arbitrary position on the grid
-        grid_goal = (math.floor(-north_offset + 100), math.floor(-east_offset - 100))
+        grid_goal = (math.floor(-north_offset + goal_coordinates[0]), math.floor(-east_offset - goal_coordinates[1]))
 
         # Run A* to find a path from start to goal
         print('Local Start and Goal: ', grid_start, grid_goal)
@@ -157,6 +158,7 @@ class MotionPlanning(Drone):
 
         # Convert path to waypoints
         waypoints = [[p[0] + north_offset, p[1] + east_offset, TARGET_ALTITUDE, 0] for p in path]
+        print("waypoints: ", waypoints)
         # Set self.waypoints
         self.waypoints = waypoints
         # TODO: send waypoints to sim (this is just for visualization of waypoints)

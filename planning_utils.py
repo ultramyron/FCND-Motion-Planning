@@ -2,7 +2,6 @@ from enum import Enum
 from queue import PriorityQueue
 import numpy as np
 
-
 def create_grid(data, drone_altitude, safety_distance):
     """
     Returns a grid representation of a 2D configuration space
@@ -26,7 +25,7 @@ def create_grid(data, drone_altitude, safety_distance):
     # Initialize an empty grid
     grid = np.zeros((north_size, east_size))
 
-    # Populate the grid with obstacles
+    # Populate the grid with obstacles 
     for i in range(data.shape[0]):
         north, east, alt, d_north, d_east, d_alt = data[i, :]
         if alt + d_alt + safety_distance > drone_altitude:
